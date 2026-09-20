@@ -83,15 +83,15 @@ anything looks off in Xcode's own project settings UI.
   turn needs `NSLocationWhenInUseUsageDescription` — add that as an
   `INFOPLIST_KEY_NSLocationWhenInUseUsageDescription` build setting (or a real
   Info.plist) on the target once you build that feature.
-- **The per-restaurant King County link is unverified.** `KingCountyLink`
-  (in `CleanEaterKit`) builds a link to King County's public dataset page
-  filtered by restaurant name via Socrata's `?column=value` convention. The
-  base URL is solid (it's from the original research this app was built
-  from); the filter behavior on that specific page has not been confirmed
-  live, since this was written without network access to
-  `data.kingcounty.gov`. Click one of the "View" links in the app and check
-  it actually lands on/filters to the right restaurant — if it doesn't,
-  `KingCountyLink.swift` is the only place that needs to change.
+- **The per-restaurant King County link.** `KingCountyLink` (in
+  `CleanEaterKit`) builds a deep link into King County's public ArcGIS
+  Experience Builder inspection map, filtered and zoomed to one business by
+  its `business_id`. This was reverse-engineered from a real share link
+  copied off King County's site, so the URL form itself is confirmed — but
+  since it's a client-side JS app (everything after `#` is a URL fragment,
+  never sent to a server), click one of the "View" links and confirm it
+  still filters correctly if King County ever changes that app's ID or
+  internal data-source wiring.
 - **No App Sandbox / entitlements file.** Fine for local development and
   running unsigned/self-signed. If you turn on App Sandbox for Mac App Store
   distribution or notarization, you'll need to add an entitlements file

@@ -1,27 +1,42 @@
 import Foundation
 
-/// Builds a browser-facing link to King County's public dataset page for a
-/// restaurant, so the UI can offer "view the source record" alongside the
-/// app's own summary.
+/// Builds a link to King County's public ArcGIS Experience Builder inspection map,
+/// pre-filtered and zoomed to one business by its stable `business_id`.
 ///
-/// UNVERIFIED: written in an environment with no network access to
-/// `data.kingcounty.gov`, so this could not be checked against the live site.
-/// The base URL (King County's Socrata dataset page for `r878-4sxa`) is solid —
-/// it's the same one from the original research this app was built from. The
-/// `?name=` filter is Socrata's long-standing convention for a simple
-/// single-column equality filter on a dataset's human-facing grid page, but
-/// that behavior specifically has not been confirmed live. Open a generated
-/// link in a browser and confirm it actually filters to the right restaurant
-/// before relying on it; if it doesn't, this is the one place to fix.
+/// Confirmed against a real share link copied from King County's site:
+/// `https://experience.arcgis.com/experience/d7adc44a99e8406fbf86bdaf0a856136/page/Home-Page#data_s=where:dataSource_4-19cdd730adc-layer-18:Business_Record_ID='PFE-PR-3147569'&zoom_to_selection=true`
+/// filters the map to that one business, using the same identifier Socrata exposes as
+/// `business_id` (`FoodEstablishmentInspection.businessID`).
+///
+/// Everything after `#` is a URL fragment that the app's own JavaScript parses
+/// client-side — it's never sent to a server, so this only works opened in a browser,
+/// not as an API call.
 public enum KingCountyLink {
-    private static let datasetPageURL = "https://data.kingcounty.gov/Health-Wellness/Food-Establishment-Inspection-Data/r878-4sxa"
+    private static let experienceAppID = "d7adc44a99e8406fbf86bdaf0a856136"
+    private static let businessLayerDataSourceID = "dataSource_4-19cdd730adc-layer-18"
 
-    public static func inspectionReportURL(forRestaurantNamed name: String) -> URL? {
-        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedName.isEmpty, var components = URLComponents(string: datasetPageURL) else {
+    /// Characters left unescaped in the `data_s` fragment value, matching the encoding
+    /// King County's own share links use (everything else — notably `:`, `=`, `'` — is
+    /// percent-encoded).
+    private static let fragmentValueAllowedCharacters: CharacterSet = {
+        var allowed = CharacterSet.alphanumerics
+        allowed.insert(charactersIn: "-_")
+        return allowed
+    }()
+
+    public static func inspectionReportURL(businessID: String) -> URL? {
+        let trimmedID = businessID.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedID.isEmpty else { return nil }
+
+        // Business IDs are King County's own fixed-format identifiers and don't
+        // contain quotes, but escape defensively since this drops straight into a
+        // quoted clause.
+        let escapedID = trimmedID.replacingOccurrences(of: "'", with: "''")
+        let whereClause = "where:\(businessLayerDataSourceID):Business_Record_ID='\(escapedID)'"
+        guard let encodedWhereClause = whereClause.addingPercentEncoding(withAllowedCharacters: fragmentValueAllowedCharacters) else {
             return nil
         }
-        components.queryItems = [URLQueryItem(name: "name", value: trimmedName)]
-        return components.url
+
+        return URL(string: "https://experience.arcgis.com/experience/\(experienceAppID)/page/Home-Page#data_s=\(encodedWhereClause)&zoom_to_selection=true")
     }
 }

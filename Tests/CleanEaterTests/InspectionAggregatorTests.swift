@@ -56,6 +56,19 @@ final class InspectionAggregatorTests: XCTestCase {
         XCTAssertEqual(summary.inspectionCount, 2)
     }
 
+    /// `businessID` doesn't depend on the lookback window, so it should come through
+    /// even from a row that falls outside `cutoff`.
+    func testBusinessIDIsCarriedThroughFromAnyRow() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let threeYearsAgo = calendar.date(byAdding: .year, value: -3, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: threeYearsAgo, businessID: "PFE-PR-3147569"),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertEqual(summary.businessID, "PFE-PR-3147569")
+    }
+
     func testClosureWithinWindowIsNeverClean() {
         let now = Date()
         let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!

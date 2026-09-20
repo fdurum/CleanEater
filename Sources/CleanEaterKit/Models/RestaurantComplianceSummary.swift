@@ -6,12 +6,17 @@ public struct RestaurantComplianceSummary: Hashable, Sendable {
     public let violationCount: Int
     public let mostRecentInspectionDate: Date?
     public let wasEverClosed: Bool
+    /// King County's stable identifier for this business location (see
+    /// `FoodEstablishmentInspection.businessID`), carried through so the UI can link
+    /// out to King County's own inspection report without depending on name text.
+    public let businessID: String?
 
-    public init(inspectionCount: Int, violationCount: Int, mostRecentInspectionDate: Date?, wasEverClosed: Bool) {
+    public init(inspectionCount: Int, violationCount: Int, mostRecentInspectionDate: Date?, wasEverClosed: Bool, businessID: String? = nil) {
         self.inspectionCount = inspectionCount
         self.violationCount = violationCount
         self.mostRecentInspectionDate = mostRecentInspectionDate
         self.wasEverClosed = wasEverClosed
+        self.businessID = businessID
     }
 
     /// "Zero violations" as defined for CleanEater: at least one inspection occurred

@@ -37,7 +37,8 @@ struct RestaurantDetailView: View {
                     }
                 }
 
-                if let reportURL = KingCountyLink.inspectionReportURL(forRestaurantNamed: result.place.name) {
+                if let businessID = result.summary.businessID,
+                   let reportURL = KingCountyLink.inspectionReportURL(businessID: businessID) {
                     Link(destination: reportURL) {
                         Label("View King County Inspection Report", systemImage: "arrow.up.forward.square")
                     }
