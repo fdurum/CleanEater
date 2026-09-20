@@ -22,6 +22,25 @@ public struct MapKitPlaceSearchProvider: PlaceSearching {
         return response.mapItems.compactMap(Self.makeCandidate)
     }
 
+    public func browseRestaurants(near center: Coordinate, radiusMeters: Double) async throws -> [PlaceCandidate] {
+        let request = MKLocalPointsOfInterestRequest(
+            center: CLLocationCoordinate2D(latitude: center.latitude, longitude: center.longitude),
+            radius: radiusMeters
+        )
+        request.pointOfInterestFilter = MKPointOfInterestFilter(including: Self.foodCategories)
+
+        let search = MKLocalSearch(request: request)
+        let response = try await search.start()
+
+        return response.mapItems.compactMap(Self.makeCandidate)
+    }
+
+    /// King County inspects anywhere that serves food, so cast a wide net rather than
+    /// trying to guess which categories matter.
+    private static let foodCategories: [MKPointOfInterestCategory] = [
+        .restaurant, .cafe, .bakery, .brewery, .winery, .foodMarket,
+    ]
+
     private static func makeCandidate(from mapItem: MKMapItem) -> PlaceCandidate? {
         guard let name = mapItem.name else { return nil }
         let placemark = mapItem.placemark

@@ -28,4 +28,9 @@ public struct PlaceCandidate: Identifiable, Hashable, Sendable {
 /// `CleanEaterMapKit` implements this with `MKLocalSearch`; tests can supply a fake.
 public protocol PlaceSearching: Sendable {
     func search(query: String, near center: Coordinate, radiusMeters: Double) async throws -> [PlaceCandidate]
+
+    /// Every food establishment in the area, with no text query — for "browse this
+    /// part of the map" rather than "search for X." `CleanEaterMapKit` implements this
+    /// with `MKLocalPointsOfInterestRequest` restricted to food-related categories.
+    func browseRestaurants(near center: Coordinate, radiusMeters: Double) async throws -> [PlaceCandidate]
 }

@@ -24,6 +24,15 @@ County's public Socrata API for its Food Establishment Inspection Data
    zero cited violations, was never closed, and its most recent inspection
    carried King County's "Excellent" grade.
 
+There's also a **Map** view (toggle in the toolbar) as an alternative to
+typing a cuisine/name: it shows every result as a pin with a clean/not-clean
+badge underneath, and a "Search This Area" button re-runs the search over
+whatever region you've panned/zoomed to, via
+`MapKitPlaceSearchProvider.browseRestaurants` (`MKLocalPointsOfInterestRequest`
+restricted to food categories, no text query) →
+`ComplianceSearchService.browseCleanRestaurants`, sharing the same King
+County matching/aggregation as the text search.
+
 ## Project layout
 
 This is an Xcode project, not a Swift package — one app, two targets:
@@ -112,3 +121,11 @@ anything looks off in Xcode's own project settings UI.
   new inspection yet. There's no false-*positive* case handled by name
   alone — the street-number check exists specifically to prevent chains from
   cross-matching each other.
+- **Map/browse mode is bounded by Apple's POI index and per-request result
+  caps.** `browseRestaurants` shows what `MKLocalPointsOfInterestRequest`
+  returns for the visible region, which won't include every business King
+  County has ever inspected (only what Apple Maps indexes), and a single
+  request is capped at some number of results — a dense downtown area may
+  need the region tiled into sub-requests and merged, which isn't
+  implemented yet. `RestaurantMapView.approximateRadiusMiles` is also a
+  rough estimate from the visible region's lat/lon span, not an exact fit.

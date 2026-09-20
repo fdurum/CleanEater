@@ -62,6 +62,7 @@
 		3F35FAF51EC68B22430AC348 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/StatusBadge.swift"; sourceTree = "<group>"; };
 		2ECECF6B8DA3E012379EB0B0 = {isa = PBXFileReference; explicitFileType = "wrapper.application"; includeInIndex = 0; path = CleanEater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		893F11D1E57E6FD50391559B = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/KingCountyLink.swift"; sourceTree = "<group>"; };
+		5C2A9E17D4B683F0912ACE44 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/RestaurantMapView.swift"; sourceTree = "<group>"; };
 		8F16FF0B9C9F220821FB724D = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/InspectionAggregatorTests.swift"; sourceTree = "<group>"; };
 		4AEC3FD38F019D2171A4DCC1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/KingCountyInspectionServiceTests.swift"; sourceTree = "<group>"; };
 		B144C965D72CDF734537C8EE = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/KingCountyLinkTests.swift"; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		D2A0079547D222A845D93B97 = {isa = PBXBuildFile; fileRef = 296BD778FA885559653EB4C3 /* SettingsView.swift */; };
 		6EF1489C0048A52D4BB6855D = {isa = PBXBuildFile; fileRef = 3F35FAF51EC68B22430AC348 /* StatusBadge.swift */; };
 		3FBC1259CFA012199EE6625F = {isa = PBXBuildFile; fileRef = 893F11D1E57E6FD50391559B /* KingCountyLink.swift */; };
+		7B1D4F6A8E293C5017BFAD62 = {isa = PBXBuildFile; fileRef = 5C2A9E17D4B683F0912ACE44 /* RestaurantMapView.swift */; };
 		D4BD4B64D2386E0BEDE4B4F1 = {isa = PBXBuildFile; fileRef = 8F16FF0B9C9F220821FB724D /* InspectionAggregatorTests.swift */; };
 		724B69CFFEF28310F818045A = {isa = PBXBuildFile; fileRef = 4AEC3FD38F019D2171A4DCC1 /* KingCountyInspectionServiceTests.swift */; };
 		E98D603F5A1FCBC49ACA4842 = {isa = PBXBuildFile; fileRef = B144C965D72CDF734537C8EE /* KingCountyLinkTests.swift */; };
@@ -137,6 +139,7 @@
 				60928475B288C0D305274165 /* ContentView.swift */,
 				7F60A8017AC6903009CB179E /* RecentSearch.swift */,
 				02961C62306DA8770FAD92CF /* RestaurantDetailView.swift */,
+				5C2A9E17D4B683F0912ACE44 /* RestaurantMapView.swift */,
 				43940AC3EAA93A576CD6E268 /* SearchViewModel.swift */,
 				296BD778FA885559653EB4C3 /* SettingsView.swift */,
 				3F35FAF51EC68B22430AC348 /* StatusBadge.swift */,
@@ -197,6 +200,7 @@
 				4DAE192ACECC679280F9D648 /* ContentView.swift in Sources */,
 				4648B3BFA47D209400AB536E /* RecentSearch.swift in Sources */,
 				CB8EFE2D8EAE12432240FC3F /* RestaurantDetailView.swift in Sources */,
+				7B1D4F6A8E293C5017BFAD62 /* RestaurantMapView.swift in Sources */,
 				9E95E49B44B05220A6FCEFD7 /* SearchViewModel.swift in Sources */,
 				D2A0079547D222A845D93B97 /* SettingsView.swift in Sources */,
 				6EF1489C0048A52D4BB6855D /* StatusBadge.swift in Sources */,

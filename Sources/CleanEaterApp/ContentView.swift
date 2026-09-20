@@ -9,6 +9,11 @@ struct ContentView: View {
     @AppStorage(SettingsKey.showAllResults) private var showAllResults = SettingsDefault.showAllResults
 
     @State private var showInspector = false
+    @State private var viewMode: ResultsViewMode = .list
+
+    private var visibleResults: [CleanRestaurantResult] {
+        showAllResults ? viewModel.results : viewModel.results.filter(\.summary.isClean)
+    }
 
     var body: some View {
         NavigationSplitView {
@@ -63,14 +68,42 @@ struct ContentView: View {
         VStack(spacing: 0) {
             searchBar
             Divider()
-            resultsList
+            Group {
+                switch viewMode {
+                case .list:
+                    resultsList
+                case .map:
+                    RestaurantMapView(viewModel: viewModel, results: visibleResults, lookbackYears: lookbackYears)
+                }
+            }
         }
         .navigationTitle("CleanEater")
         .toolbar {
             ToolbarItem(placement: .automatic) {
+                Picker("View", selection: $viewMode) {
+                    ForEach(ResultsViewMode.allCases) { mode in
+                        Text(mode.title).tag(mode)
+                    }
+                }
+                .pickerStyle(.segmented)
+            }
+            ToolbarItem(placement: .automatic) {
                 Toggle("Show All Results", isOn: $showAllResults)
                     .toggleStyle(.checkbox)
                     .help("When off, only restaurants with zero violations in the lookback window are shown.")
+            }
+        }
+    }
+
+    private enum ResultsViewMode: String, CaseIterable, Identifiable {
+        case list, map
+
+        var id: Self { self }
+
+        var title: String {
+            switch self {
+            case .list: return "List"
+            case .map: return "Map"
             }
         }
     }
@@ -114,7 +147,6 @@ struct ContentView: View {
                 description: Text("CleanEater shows only places with zero King County health-code violations in the last \(lookbackYears) year\(lookbackYears == 1 ? "" : "s"), unless you turn on “Show All Results.”")
             )
         } else {
-            let visibleResults = showAllResults ? viewModel.results : viewModel.results.filter(\.summary.isClean)
             Table(visibleResults, selection: $viewModel.selection) {
                 TableColumn("Name") { result in
                     Text(result.place.name)

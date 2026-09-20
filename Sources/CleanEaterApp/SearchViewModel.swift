@@ -29,25 +29,50 @@ final class SearchViewModel: ObservableObject {
 
         do {
             let center = try await resolveCenter()
-            let inspectionService = KingCountyInspectionService()
-            let service = ComplianceSearchService(
-                placeSearch: placeSearch,
-                inspectionService: inspectionService,
-                lookbackYears: lookbackYears
-            )
+            let service = makeComplianceSearchService(lookbackYears: lookbackYears)
             let radiusMeters = radiusMiles * 1609.34
             results = try await service.searchCleanRestaurants(query: cuisineQuery, near: center, radiusMeters: radiusMeters)
-                .sorted { lhs, rhs in
-                    if lhs.summary.isClean != rhs.summary.isClean {
-                        return lhs.summary.isClean && !rhs.summary.isClean
-                    }
-                    return lhs.place.name.localizedCaseInsensitiveCompare(rhs.place.name) == .orderedAscending
-                }
+                .sorted(by: Self.resultOrdering)
             selection = nil
         } catch {
             errorMessage = Self.friendlyMessage(for: error)
             results = []
         }
+    }
+
+    /// Every food establishment in `center`/`radiusMiles`, independent of any typed
+    /// query — for "browse this map region" rather than searching for a cuisine.
+    func browse(center: Coordinate, radiusMiles: Double, lookbackYears: Int) async {
+        isSearching = true
+        errorMessage = nil
+        defer { isSearching = false }
+
+        do {
+            let service = makeComplianceSearchService(lookbackYears: lookbackYears)
+            let radiusMeters = radiusMiles * 1609.34
+            results = try await service.browseCleanRestaurants(near: center, radiusMeters: radiusMeters)
+                .sorted(by: Self.resultOrdering)
+            selection = nil
+        } catch {
+            errorMessage = Self.friendlyMessage(for: error)
+            results = []
+        }
+    }
+
+    private func makeComplianceSearchService(lookbackYears: Int) -> ComplianceSearchService {
+        ComplianceSearchService(
+            placeSearch: placeSearch,
+            inspectionService: KingCountyInspectionService(),
+            lookbackYears: lookbackYears
+        )
+    }
+
+    /// Clean restaurants first, then alphabetical within each group.
+    private static func resultOrdering(_ lhs: CleanRestaurantResult, _ rhs: CleanRestaurantResult) -> Bool {
+        if lhs.summary.isClean != rhs.summary.isClean {
+            return lhs.summary.isClean && !rhs.summary.isClean
+        }
+        return lhs.place.name.localizedCaseInsensitiveCompare(rhs.place.name) == .orderedAscending
     }
 
     private func resolveCenter() async throws -> Coordinate {

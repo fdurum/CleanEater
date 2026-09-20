@@ -25,9 +25,20 @@ public final class ComplianceSearchService {
     ///   Callers that only want "zero violations in the last N years" should filter
     ///   on `result.summary.isClean`.
     public func searchCleanRestaurants(query: String, near center: Coordinate, radiusMeters: Double) async throws -> [CleanRestaurantResult] {
-        let cutoff = cutoffDate()
         let places = try await placeSearch.search(query: query, near: center, radiusMeters: radiusMeters)
+        return try await complianceResults(for: places)
+    }
 
+    /// Every food establishment MapKit knows about in the area, cross-referenced with
+    /// King County the same way as `searchCleanRestaurants` — for browsing a map
+    /// region rather than searching for a specific cuisine or name.
+    public func browseCleanRestaurants(near center: Coordinate, radiusMeters: Double) async throws -> [CleanRestaurantResult] {
+        let places = try await placeSearch.browseRestaurants(near: center, radiusMeters: radiusMeters)
+        return try await complianceResults(for: places)
+    }
+
+    private func complianceResults(for places: [PlaceCandidate]) async throws -> [CleanRestaurantResult] {
+        let cutoff = cutoffDate()
         var results: [CleanRestaurantResult] = []
         results.reserveCapacity(places.count)
 
