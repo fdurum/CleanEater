@@ -41,9 +41,19 @@ public enum RestaurantMatcher {
 
     private static let legalSuffixes: Set<String> = ["LLC", "INC", "INCORPORATED", "CORP", "CORPORATION", "CO", "LTD", "LP"]
 
+    /// King County prefixes some listings with an internal store/location code, e.g.
+    /// `"#807 TUTTA BELLA"` for a chain location — MapKit never includes that code, so
+    /// treating it as a name token would only ever penalize the similarity score.
+    private static let leadingStoreCode = try! NSRegularExpression(pattern: "^#?\\d+\\s+")
+
     static func normalizedNameTokens(_ name: String) -> Set<String> {
         let upper = name.uppercased()
-        let alphanumericOnly = upper.unicodeScalars.map { scalar -> Character in
+        let withoutStoreCode = leadingStoreCode.stringByReplacingMatches(
+            in: upper,
+            range: NSRange(upper.startIndex..., in: upper),
+            withTemplate: ""
+        )
+        let alphanumericOnly = withoutStoreCode.unicodeScalars.map { scalar -> Character in
             (CharacterSet.alphanumerics.contains(scalar) || scalar == " ") ? Character(scalar) : " "
         }
         let cleaned = String(alphanumericOnly)

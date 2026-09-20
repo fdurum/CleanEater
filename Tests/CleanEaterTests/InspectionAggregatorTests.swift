@@ -42,6 +42,20 @@ final class InspectionAggregatorTests: XCTestCase {
         XCTAssertFalse(summary.isClean, "No inspections in the window means we can't vouch for it")
     }
 
+    /// Two visits sharing the same date and type (e.g. a routine inspection redone
+    /// the same day) would collapse into one event under the old date+type key, but
+    /// King County's `inspection_serial_num` disambiguates them correctly.
+    func testDistinctSerialNumbersOnSameDateAndTypeCountAsTwoInspections() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine", inspectionSerialNumber: "SERIAL-1"),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine", inspectionSerialNumber: "SERIAL-2"),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertEqual(summary.inspectionCount, 2)
+    }
+
     func testClosureWithinWindowIsNeverClean() {
         let now = Date()
         let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!

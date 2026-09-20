@@ -51,6 +51,25 @@ final class RestaurantMatcherTests: XCTestCase {
         XCTAssertFalse(RestaurantMatcher.isMatch(place: place, inspection: inspection))
     }
 
+    /// King County prefixes chain locations with an internal store code (e.g.
+    /// `"#807 TUTTA BELLA"`), which MapKit never surfaces. That numeric prefix
+    /// shouldn't count against the name similarity score.
+    func testMatchesDespiteLeadingStoreCode() {
+        let place = PlaceCandidate(
+            id: "1",
+            name: "Tutta Bella",
+            streetAddress: "2746 NE 45th St",
+            city: "Seattle",
+            coordinate: Coordinate(latitude: 47.6, longitude: -122.3)
+        )
+        let inspection = FoodEstablishmentInspection(
+            name: "#807 TUTTA BELLA",
+            address: "2746 NE 45TH ST",
+            inspectionDate: Date()
+        )
+        XCTAssertTrue(RestaurantMatcher.isMatch(place: place, inspection: inspection))
+    }
+
     func testMissingAddressFallsBackToNameOnly() {
         let place = PlaceCandidate(
             id: "1",

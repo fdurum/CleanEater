@@ -65,15 +65,18 @@ anything looks off in Xcode's own project settings UI.
 
 ## Known limitations / next steps
 
-- **Field names unverified against the live API.** This was written in an
-  environment with no network access to `data.kingcounty.gov`, so the
-  Socrata column names in `FoodEstablishmentInspection.CodingKeys` (`name`,
-  `program_identifier`, `inspection_date`, etc.) are best-effort, not
-  confirmed. Before relying on this, fetch
-  `https://data.kingcounty.gov/resource/r878-4sxa.json?$limit=5` yourself and
-  diff the keys against `CodingKeys` — fix up any mismatches there. Also
-  double check whether King County publishes a newer dataset id than
-  `r878-4sxa` by the time you read this.
+- **MapKit names don't always match King County's on-file name.** King
+  County prefixes chain locations with an internal store code (e.g. `"#807
+  TUTTA BELLA"`), which MapKit never surfaces, and more generally a
+  business's DBA name can drift from what's on file. `RestaurantMatcher`
+  strips a leading numeric store code before scoring name similarity, but
+  bigger name divergences (rebrands, a MapKit listing using a different DBA
+  entirely) can still cause a miss, since the initial Socrata query
+  (`KingCountyInspectionService.buildURL`) is a name substring search — if
+  it returns zero rows, `RestaurantMatcher` never gets a chance to run. A
+  more robust fix would query by address/zip instead of (or in addition to)
+  name, since King County's own `business_id` is stable per location
+  regardless of name text.
 - **No location-permission entitlement yet.** The app currently only
   resolves "where" via geocoding a typed string (no permission needed). A
   "use my current location" button would need `CLLocationManager`, which in

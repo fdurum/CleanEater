@@ -11,8 +11,14 @@ public enum InspectionAggregator {
         let inWindow = rows.filter { $0.inspectionDate >= cutoff }
 
         // The dataset repeats a row per violation, so one inspection "event" is
-        // identified by its date + type rather than by row count.
-        let inspectionEvents = Set(inWindow.map { InspectionEventKey(date: $0.inspectionDate, type: $0.inspectionType ?? "") })
+        // identified by King County's own per-visit serial number rather than by row
+        // count. Fall back to date + type if a row is ever missing that field.
+        let inspectionEvents = Set(inWindow.map { row -> InspectionEventKey in
+            if let serial = row.inspectionSerialNumber, !serial.isEmpty {
+                return .serial(serial)
+            }
+            return .dateAndType(date: row.inspectionDate, type: row.inspectionType ?? "")
+        })
 
         let violationCount = inWindow.filter { $0.isViolationRow }.count
         let mostRecent = inWindow.map(\.inspectionDate).max()
@@ -26,8 +32,8 @@ public enum InspectionAggregator {
         )
     }
 
-    private struct InspectionEventKey: Hashable {
-        let date: Date
-        let type: String
+    private enum InspectionEventKey: Hashable {
+        case serial(String)
+        case dateAndType(date: Date, type: String)
     }
 }
