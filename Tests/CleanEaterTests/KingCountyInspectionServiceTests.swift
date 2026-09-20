@@ -1,5 +1,5 @@
 import XCTest
-@testable import CleanEaterKit
+@testable import CleanEater
 
 final class KingCountyInspectionServiceTests: XCTestCase {
     private let baseURL = URL(string: "https://data.kingcounty.gov/resource/r878-4sxa.json")!

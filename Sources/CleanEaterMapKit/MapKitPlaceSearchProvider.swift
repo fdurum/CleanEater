@@ -1,11 +1,8 @@
 #if canImport(MapKit)
 import MapKit
-#if canImport(CleanEaterKit)
-import CleanEaterKit
-#endif
 
-/// Adapts `MKLocalSearch` to `PlaceSearching` so `CleanEaterKit`'s pipeline can stay
-/// free of MapKit imports (and therefore unit-testable without a device/simulator).
+/// Adapts `MKLocalSearch` to `PlaceSearching` so the search pipeline can be tested
+/// against a fake without ever calling a real `MKLocalSearch`.
 public struct MapKitPlaceSearchProvider: PlaceSearching {
     public init() {}
 

@@ -1,5 +1,5 @@
 import XCTest
-@testable import CleanEaterKit
+@testable import CleanEater
 
 final class KingCountyLinkTests: XCTestCase {
     func testBuildsLinkWithNameFilter() throws {

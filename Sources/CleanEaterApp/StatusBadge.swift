@@ -1,7 +1,4 @@
 import SwiftUI
-#if canImport(CleanEaterKit)
-import CleanEaterKit
-#endif
 
 struct StatusBadge: View {
     let summary: RestaurantComplianceSummary

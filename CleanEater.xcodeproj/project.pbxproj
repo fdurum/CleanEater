@@ -16,6 +16,10 @@
 					524FA856EEE22D01CF065B92 = {
 						CreatedOnToolsVersion = 15.0;
 					};
+					A53AFE8A78F79D827AC5409B = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 524FA856EEE22D01CF065B92;
+					};
 				};
 			};
 			buildConfigurationList = 6528CE468B3C4ECFE3C61293 /* Build configuration list for PBXProject "CleanEater" */;
@@ -32,6 +36,7 @@
 			projectRoot = "";
 			targets = (
 				524FA856EEE22D01CF065B92 /* CleanEater */,
+				A53AFE8A78F79D827AC5409B /* CleanEaterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -57,6 +62,11 @@
 		3F35FAF51EC68B22430AC348 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/StatusBadge.swift"; sourceTree = "<group>"; };
 		2ECECF6B8DA3E012379EB0B0 = {isa = PBXFileReference; explicitFileType = "wrapper.application"; includeInIndex = 0; path = CleanEater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		893F11D1E57E6FD50391559B = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/KingCountyLink.swift"; sourceTree = "<group>"; };
+		8F16FF0B9C9F220821FB724D = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/InspectionAggregatorTests.swift"; sourceTree = "<group>"; };
+		4AEC3FD38F019D2171A4DCC1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/KingCountyInspectionServiceTests.swift"; sourceTree = "<group>"; };
+		B144C965D72CDF734537C8EE = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/KingCountyLinkTests.swift"; sourceTree = "<group>"; };
+		C34CC8142F1CCE042E79E4CE = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tests/CleanEaterTests/RestaurantMatcherTests.swift"; sourceTree = "<group>"; };
+		069E4B1F59C7CBF093A10405 = {isa = PBXFileReference; explicitFileType = "wrapper.cfbundle"; includeInIndex = 0; path = CleanEaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXBuildFile section */
@@ -79,6 +89,10 @@
 		D2A0079547D222A845D93B97 = {isa = PBXBuildFile; fileRef = 296BD778FA885559653EB4C3 /* SettingsView.swift */; };
 		6EF1489C0048A52D4BB6855D = {isa = PBXBuildFile; fileRef = 3F35FAF51EC68B22430AC348 /* StatusBadge.swift */; };
 		3FBC1259CFA012199EE6625F = {isa = PBXBuildFile; fileRef = 893F11D1E57E6FD50391559B /* KingCountyLink.swift */; };
+		D4BD4B64D2386E0BEDE4B4F1 = {isa = PBXBuildFile; fileRef = 8F16FF0B9C9F220821FB724D /* InspectionAggregatorTests.swift */; };
+		724B69CFFEF28310F818045A = {isa = PBXBuildFile; fileRef = 4AEC3FD38F019D2171A4DCC1 /* KingCountyInspectionServiceTests.swift */; };
+		E98D603F5A1FCBC49ACA4842 = {isa = PBXBuildFile; fileRef = B144C965D72CDF734537C8EE /* KingCountyLinkTests.swift */; };
+		3A8127796F9E4ECB4AD5F45E = {isa = PBXBuildFile; fileRef = C34CC8142F1CCE042E79E4CE /* RestaurantMatcherTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXGroup section */
@@ -134,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				2ECECF6B8DA3E012379EB0B0 /* CleanEater.app */,
+				069E4B1F59C7CBF093A10405 /* CleanEaterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,8 +159,20 @@
 				1FD83F1F5D6D05A24FE39FA2 /* CleanEaterKit */,
 				0D1ACBA21778FFC3536A13BC /* CleanEaterMapKit */,
 				923470CB81C40E962E92147E /* CleanEaterApp */,
+				15164584E8415E71EA2F9D72 /* CleanEaterTests */,
 				D25DD648E8B274CB8F7D8259 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		15164584E8415E71EA2F9D72 = {
+			isa = PBXGroup;
+			children = (
+				8F16FF0B9C9F220821FB724D /* InspectionAggregatorTests.swift */,
+				4AEC3FD38F019D2171A4DCC1 /* KingCountyInspectionServiceTests.swift */,
+				B144C965D72CDF734537C8EE /* KingCountyLinkTests.swift */,
+				C34CC8142F1CCE042E79E4CE /* RestaurantMatcherTests.swift */,
+			);
+			name = "CleanEaterTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +204,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7496BCB9654ACFA066917504 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BD4B64D2386E0BEDE4B4F1 /* InspectionAggregatorTests.swift in Sources */,
+				724B69CFFEF28310F818045A /* KingCountyInspectionServiceTests.swift in Sources */,
+				E98D603F5A1FCBC49ACA4842 /* KingCountyLinkTests.swift in Sources */,
+				3A8127796F9E4ECB4AD5F45E /* RestaurantMatcherTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,10 +225,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FE636DCED37C40E532DEE4AF = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4E349B39FE4EBC9DE6AF2594 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F74DC33F46382540E47A926 = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,6 +268,24 @@
 			productName = CleanEater;
 			productReference = 2ECECF6B8DA3E012379EB0B0 /* CleanEater.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A53AFE8A78F79D827AC5409B = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83FBAEA085C99FB9C8CF66BB /* Build configuration list for PBXNativeTarget "CleanEaterTests" */;
+			buildPhases = (
+				7496BCB9654ACFA066917504 /* Sources */,
+				FE636DCED37C40E532DEE4AF /* Frameworks */,
+				3F74DC33F46382540E47A926 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2B5547D9B35479376BAD0D86 /* PBXTargetDependency */,
+			);
+			name = CleanEaterTests;
+			productName = CleanEaterTests;
+			productReference = 069E4B1F59C7CBF093A10405 /* CleanEaterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -350,6 +420,50 @@
 			};
 			name = Release;
 		};
+		A0925790D4828B2D65A3B1CD = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cleaneater.CleanEaterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CleanEater.app/Contents/MacOS/CleanEater";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+			};
+			name = Debug;
+		};
+		8DFAAF380BE038A8DE5A35D7 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cleaneater.CleanEaterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CleanEater.app/Contents/MacOS/CleanEater";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -371,7 +485,34 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		83FBAEA085C99FB9C8CF66BB = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0925790D4828B2D65A3B1CD /* Debug */,
+				8DFAAF380BE038A8DE5A35D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin PBXContainerItemProxy section */
+		E4C76C47DF9C3E08E1B33110 = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DF9B6A51CAE112EB5B1C017 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 524FA856EEE22D01CF065B92;
+			remoteInfo = CleanEater;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		2B5547D9B35479376BAD0D86 = {
+			isa = PBXTargetDependency;
+			target = 524FA856EEE22D01CF065B92 /* CleanEater */;
+			targetProxy = E4C76C47DF9C3E08E1B33110 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 	};
 	rootObject = 8DF9B6A51CAE112EB5B1C017 /* Project object */;
 }

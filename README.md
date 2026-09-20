@@ -25,31 +25,30 @@ County's public Socrata API for its Food Establishment Inspection Data
 
 ## Project layout
 
+This is an Xcode project, not a Swift package — one app, two targets:
+
 ```
 Sources/
-  CleanEaterKit/       Pure Swift + Foundation. No Apple-only frameworks.
-                        King County API client, matching, aggregation,
-                        the search pipeline. Unit-tested.
-  CleanEaterMapKit/     MapKit/CoreLocation adapters (place search, geocoding).
-  CleanEaterApp/        SwiftUI app: sidebar of recent searches, a Table of
-                        results, an inspector pane for restaurant detail,
-                        a Settings scene (⌘,) for lookback window / radius.
+  CleanEaterKit/     King County API client, name/address matching,
+                     inspection aggregation, the search pipeline.
+  CleanEaterMapKit/  MapKit/CoreLocation adapters (place search, geocoding).
+  CleanEaterApp/     SwiftUI: sidebar of recent searches, a Table of
+                     results, an inspector pane for restaurant detail,
+                     a Settings scene (⌘,) for lookback window / radius.
 Tests/
-  CleanEaterKitTests/   Matcher, aggregator, and Socrata query/decoding tests.
+  CleanEaterTests/   Matcher, aggregator, and Socrata query/decoding tests —
+                     runs as the CleanEaterTests target, hosted by the app.
 ```
 
-`CleanEaterKit` has no Apple-only dependencies on purpose, so its logic is
-testable in CI on any platform with Swift installed. `CleanEaterMapKit` and
-`CleanEaterApp` are gated behind `#if canImport(Darwin)` in `Package.swift`
-and only build on macOS.
+The `Sources/*` split into folders for readability, but they all compile into
+the one `CleanEater` target/module — there's no cross-module boundary between
+them, so no `import` between those folders is needed.
 
 ## Running it
 
-**Open `CleanEater.xcodeproj` in Xcode and hit ⌘R.** That's the normal way to
-build and run this — a single "CleanEater" target with all the sources above
-compiled together, a `GENERATE_INFOPLIST_FILE`-based Info.plist (no physical
-Info.plist file to maintain), and a shared scheme already checked in, so
-there's no setup step beyond opening it.
+**Open `CleanEater.xcodeproj` in Xcode and hit ⌘R.** A shared scheme is
+already checked in, so there's no setup step beyond opening it. ⌘U runs the
+tests (`CleanEaterTests`, a proper unit-test target hosted by the app).
 
 Before your first build, select the CleanEater project in the navigator →
 the CleanEater target → **Signing & Capabilities**, and change the bundle
@@ -63,23 +62,6 @@ rather than hand-typed, specifically to avoid the risk of a manually-edited
 (round-trip parsed) in an environment without Xcode itself, so treat the
 first `⌘B` as the real verification and file an issue against yourself if
 anything looks off in Xcode's own project settings UI.
-
-The Swift package (`Package.swift`) is still here and still works — it's how
-the unit tests run, and it's a second, Xcode-independent way to build/run the
-app:
-
-```
-swift test              # runs Tests/CleanEaterKitTests
-swift run CleanEaterApp # builds & runs the app without Xcode
-```
-
-Both build systems compile the *same* files in `Sources/`. The only wrinkle
-is that files shared between `CleanEaterApp`/`CleanEaterMapKit` and
-`CleanEaterKit` import it as `#if canImport(CleanEaterKit) import
-CleanEaterKit #endif` — under SPM that's a real separate module and the
-import fires; under the Xcode project everything is one target/module, so
-`canImport` is false and the import is skipped, with no code changes needed
-either way.
 
 ## Known limitations / next steps
 

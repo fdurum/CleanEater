@@ -20,6 +20,20 @@
                ReferencedContainer = "container:CleanEater.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A53AFE8A78F79D827AC5409B"
+               BuildableName = "CleanEaterTests.xctest"
+               BlueprintName = "CleanEaterTests"
+               ReferencedContainer = "container:CleanEater.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +42,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A53AFE8A78F79D827AC5409B"
+               BuildableName = "CleanEaterTests.xctest"
+               BlueprintName = "CleanEaterTests"
+               ReferencedContainer = "container:CleanEater.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
