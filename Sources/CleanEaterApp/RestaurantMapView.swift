@@ -10,8 +10,24 @@ struct RestaurantMapView: View {
     let results: [CleanRestaurantResult]
     let lookbackYears: Int
 
-    @State private var cameraPosition: MapCameraPosition = .automatic
+    /// Seattle, so the map opens somewhere sensible (and with `visibleRegion` already
+    /// populated) instead of `.automatic`'s blank/whole-world view when there are no
+    /// pins yet to fit bounds around.
+    private static let initialRegion = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 47.6062, longitude: -122.3321),
+        span: MKCoordinateSpan(latitudeDelta: 0.06, longitudeDelta: 0.09)
+    )
+
+    @State private var cameraPosition: MapCameraPosition
     @State private var visibleRegion: MKCoordinateRegion?
+
+    init(viewModel: SearchViewModel, results: [CleanRestaurantResult], lookbackYears: Int) {
+        self.viewModel = viewModel
+        self.results = results
+        self.lookbackYears = lookbackYears
+        _cameraPosition = State(initialValue: .region(Self.initialRegion))
+        _visibleRegion = State(initialValue: Self.initialRegion)
+    }
 
     var body: some View {
         ZStack(alignment: .top) {

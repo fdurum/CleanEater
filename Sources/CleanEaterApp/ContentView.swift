@@ -66,13 +66,15 @@ struct ContentView: View {
 
     private var detail: some View {
         VStack(spacing: 0) {
-            searchBar
-            Divider()
             Group {
                 switch viewMode {
                 case .list:
+                    searchBar
+                    Divider()
                     resultsList
                 case .map:
+                    // No text query here — Map mode browses whatever area you pan to
+                    // via RestaurantMapView's own "Search This Area" button.
                     RestaurantMapView(viewModel: viewModel, results: visibleResults, lookbackYears: lookbackYears)
                 }
             }
