@@ -56,6 +56,7 @@
 		296BD778FA885559653EB4C3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/SettingsView.swift"; sourceTree = "<group>"; };
 		3F35FAF51EC68B22430AC348 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/StatusBadge.swift"; sourceTree = "<group>"; };
 		2ECECF6B8DA3E012379EB0B0 = {isa = PBXFileReference; explicitFileType = "wrapper.application"; includeInIndex = 0; path = CleanEater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		893F11D1E57E6FD50391559B = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/KingCountyLink.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXBuildFile section */
@@ -77,6 +78,7 @@
 		9E95E49B44B05220A6FCEFD7 = {isa = PBXBuildFile; fileRef = 43940AC3EAA93A576CD6E268 /* SearchViewModel.swift */; };
 		D2A0079547D222A845D93B97 = {isa = PBXBuildFile; fileRef = 296BD778FA885559653EB4C3 /* SettingsView.swift */; };
 		6EF1489C0048A52D4BB6855D = {isa = PBXBuildFile; fileRef = 3F35FAF51EC68B22430AC348 /* StatusBadge.swift */; };
+		3FBC1259CFA012199EE6625F = {isa = PBXBuildFile; fileRef = 893F11D1E57E6FD50391559B /* KingCountyLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXGroup section */
@@ -99,6 +101,7 @@
 				AAB8B2826C4BA4E0B0735392 /* KingCountyInspectionService.swift */,
 				2555D50C9E1FB876FE8C670E /* Models */,
 				BFDD9FA9E22ECF329826ED2C /* RestaurantMatcher.swift */,
+				893F11D1E57E6FD50391559B /* KingCountyLink.swift */,
 			);
 			name = "CleanEaterKit";
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				9E95E49B44B05220A6FCEFD7 /* SearchViewModel.swift in Sources */,
 				D2A0079547D222A845D93B97 /* SettingsView.swift in Sources */,
 				6EF1489C0048A52D4BB6855D /* StatusBadge.swift in Sources */,
+				3FBC1259CFA012199EE6625F /* KingCountyLink.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

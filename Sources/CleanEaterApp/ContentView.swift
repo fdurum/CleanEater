@@ -132,6 +132,12 @@ struct ContentView: View {
                 TableColumn("Inspections") { result in
                     Text("\(result.summary.inspectionCount)")
                 }
+                TableColumn("Report") { result in
+                    if let reportURL = KingCountyLink.inspectionReportURL(forRestaurantNamed: result.place.name) {
+                        Link("View", destination: reportURL)
+                    }
+                }
+                .width(60)
             }
         }
     }

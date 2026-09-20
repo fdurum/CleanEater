@@ -40,6 +40,12 @@ struct RestaurantDetailView: View {
                     }
                 }
 
+                if let reportURL = KingCountyLink.inspectionReportURL(forRestaurantNamed: result.place.name) {
+                    Link(destination: reportURL) {
+                        Label("View King County Inspection Report", systemImage: "arrow.up.forward.square")
+                    }
+                }
+
                 Spacer()
 
                 Text("Source: King County Food Establishment Inspection Data")
