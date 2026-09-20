@@ -8,11 +8,38 @@ final class InspectionAggregatorTests: XCTestCase {
         let now = Date()
         let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
         let rows = [
-            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine"),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine", grade: "Excellent"),
         ]
         let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
         XCTAssertEqual(summary.inspectionCount, 1)
         XCTAssertEqual(summary.violationCount, 0)
+        XCTAssertTrue(summary.isClean)
+    }
+
+    /// Zero violations alone isn't enough — the most recent inspection also has to
+    /// carry King County's "Excellent" grade.
+    func testZeroViolationsButNonExcellentLastGradeIsNotClean() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine", grade: "Good"),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertEqual(summary.violationCount, 0)
+        XCTAssertFalse(summary.isClean)
+    }
+
+    /// The grade that counts is the one from the most recent visit, not an older one.
+    func testUsesGradeFromMostRecentInspectionOnly() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let sixMonthsAgo = calendar.date(byAdding: .month, value: -6, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: sixMonthsAgo, inspectionType: "Routine", grade: "Good"),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine", grade: "Excellent"),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertEqual(summary.lastGrade, "Excellent")
         XCTAssertTrue(summary.isClean)
     }
 

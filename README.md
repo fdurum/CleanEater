@@ -21,7 +21,8 @@ County's public Socrata API for its Food Establishment Inspection Data
    into a single summary: inspection count, violation count, most recent
    inspection date, whether it was ever closed.
 7. A restaurant is "clean" if it has at least one inspection in the window,
-   zero cited violations, and was never closed.
+   zero cited violations, was never closed, and its most recent inspection
+   carried King County's "Excellent" grade.
 
 ## Project layout
 

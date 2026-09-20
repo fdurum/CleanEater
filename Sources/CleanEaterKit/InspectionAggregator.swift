@@ -21,7 +21,7 @@ public enum InspectionAggregator {
         })
 
         let violationCount = inWindow.filter { $0.isViolationRow }.count
-        let mostRecent = inWindow.map(\.inspectionDate).max()
+        let mostRecentRow = inWindow.max { $0.inspectionDate < $1.inspectionDate }
         let wasEverClosed = inWindow.contains { $0.inspectionClosedBusiness }
         // Business ID doesn't depend on the lookback window, so pull it from any row
         // that has one rather than just the ones that fall inside `cutoff`.
@@ -30,9 +30,10 @@ public enum InspectionAggregator {
         return RestaurantComplianceSummary(
             inspectionCount: inspectionEvents.count,
             violationCount: violationCount,
-            mostRecentInspectionDate: mostRecent,
+            mostRecentInspectionDate: mostRecentRow?.inspectionDate,
             wasEverClosed: wasEverClosed,
-            businessID: businessID
+            businessID: businessID,
+            lastGrade: mostRecentRow?.grade
         )
     }
 
