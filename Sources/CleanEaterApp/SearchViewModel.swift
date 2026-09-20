@@ -1,6 +1,10 @@
 import Foundation
+#if canImport(CleanEaterKit)
 import CleanEaterKit
+#endif
+#if canImport(CleanEaterMapKit)
 import CleanEaterMapKit
+#endif
 
 @MainActor
 final class SearchViewModel: ObservableObject {

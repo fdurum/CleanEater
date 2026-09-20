@@ -1,0 +1,373 @@
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXProject section */
+		8DF9B6A51CAE112EB5B1C017 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					524FA856EEE22D01CF065B92 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 6528CE468B3C4ECFE3C61293 /* Build configuration list for PBXProject "CleanEater" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 116858FF35DEE24FDB7BDC26;
+			productRefGroup = D25DD648E8B274CB8F7D8259 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				524FA856EEE22D01CF065B92 /* CleanEater */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXFileReference section */
+		B260BE69C31E58D5D665030F = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/ComplianceSearchService.swift"; sourceTree = "<group>"; };
+		19F9B5039140268821A3663E = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/InspectionAggregator.swift"; sourceTree = "<group>"; };
+		AAB8B2826C4BA4E0B0735392 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/KingCountyInspectionService.swift"; sourceTree = "<group>"; };
+		47369F518D50A3CAC12EFA76 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/Models/Coordinate.swift"; sourceTree = "<group>"; };
+		95A8AA5E955936F039EC99F7 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/Models/FoodEstablishmentInspection.swift"; sourceTree = "<group>"; };
+		F7300B453531E951DC50FB68 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/Models/PlaceCandidate.swift"; sourceTree = "<group>"; };
+		F51318E1DC2AC61998ACC8FD = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/Models/RestaurantComplianceSummary.swift"; sourceTree = "<group>"; };
+		BFDD9FA9E22ECF329826ED2C = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterKit/RestaurantMatcher.swift"; sourceTree = "<group>"; };
+		A38F828829237106DBCDE564 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterMapKit/GeocodingService.swift"; sourceTree = "<group>"; };
+		B7D277570A2F62BE09706F39 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterMapKit/MapKitPlaceSearchProvider.swift"; sourceTree = "<group>"; };
+		E64A83E5FDF8526985763055 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/AppSettings.swift"; sourceTree = "<group>"; };
+		B416C1C708BE57E22838B8D4 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/CleanEaterApp.swift"; sourceTree = "<group>"; };
+		60928475B288C0D305274165 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/ContentView.swift"; sourceTree = "<group>"; };
+		7F60A8017AC6903009CB179E = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/RecentSearch.swift"; sourceTree = "<group>"; };
+		02961C62306DA8770FAD92CF = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/RestaurantDetailView.swift"; sourceTree = "<group>"; };
+		43940AC3EAA93A576CD6E268 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/SearchViewModel.swift"; sourceTree = "<group>"; };
+		296BD778FA885559653EB4C3 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/SettingsView.swift"; sourceTree = "<group>"; };
+		3F35FAF51EC68B22430AC348 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/CleanEaterApp/StatusBadge.swift"; sourceTree = "<group>"; };
+		2ECECF6B8DA3E012379EB0B0 = {isa = PBXFileReference; explicitFileType = "wrapper.application"; includeInIndex = 0; path = CleanEater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXBuildFile section */
+		67FA58AD72FF41BA2EC0C3BD = {isa = PBXBuildFile; fileRef = B260BE69C31E58D5D665030F /* ComplianceSearchService.swift */; };
+		80B2FECDDDA73225B1A8E37B = {isa = PBXBuildFile; fileRef = 19F9B5039140268821A3663E /* InspectionAggregator.swift */; };
+		9EC2E341F073692CFCB7699A = {isa = PBXBuildFile; fileRef = AAB8B2826C4BA4E0B0735392 /* KingCountyInspectionService.swift */; };
+		6662AC6C41040CCC938C0678 = {isa = PBXBuildFile; fileRef = 47369F518D50A3CAC12EFA76 /* Coordinate.swift */; };
+		777FDDF0C59A16406CFF7A41 = {isa = PBXBuildFile; fileRef = 95A8AA5E955936F039EC99F7 /* FoodEstablishmentInspection.swift */; };
+		17313568EC0714D7A6AB7FD4 = {isa = PBXBuildFile; fileRef = F7300B453531E951DC50FB68 /* PlaceCandidate.swift */; };
+		41F319E657411453F7AA1C63 = {isa = PBXBuildFile; fileRef = F51318E1DC2AC61998ACC8FD /* RestaurantComplianceSummary.swift */; };
+		23CAE17B7EFE45CAC1A621A8 = {isa = PBXBuildFile; fileRef = BFDD9FA9E22ECF329826ED2C /* RestaurantMatcher.swift */; };
+		230E9A76854684B29F32CC3A = {isa = PBXBuildFile; fileRef = A38F828829237106DBCDE564 /* GeocodingService.swift */; };
+		11F16EE34024B447F21EC2A3 = {isa = PBXBuildFile; fileRef = B7D277570A2F62BE09706F39 /* MapKitPlaceSearchProvider.swift */; };
+		3DCEACFDF23C92C674AC8C8C = {isa = PBXBuildFile; fileRef = E64A83E5FDF8526985763055 /* AppSettings.swift */; };
+		488FFAB9D89B5EAD2D0080B3 = {isa = PBXBuildFile; fileRef = B416C1C708BE57E22838B8D4 /* CleanEaterApp.swift */; };
+		4DAE192ACECC679280F9D648 = {isa = PBXBuildFile; fileRef = 60928475B288C0D305274165 /* ContentView.swift */; };
+		4648B3BFA47D209400AB536E = {isa = PBXBuildFile; fileRef = 7F60A8017AC6903009CB179E /* RecentSearch.swift */; };
+		CB8EFE2D8EAE12432240FC3F = {isa = PBXBuildFile; fileRef = 02961C62306DA8770FAD92CF /* RestaurantDetailView.swift */; };
+		9E95E49B44B05220A6FCEFD7 = {isa = PBXBuildFile; fileRef = 43940AC3EAA93A576CD6E268 /* SearchViewModel.swift */; };
+		D2A0079547D222A845D93B97 = {isa = PBXBuildFile; fileRef = 296BD778FA885559653EB4C3 /* SettingsView.swift */; };
+		6EF1489C0048A52D4BB6855D = {isa = PBXBuildFile; fileRef = 3F35FAF51EC68B22430AC348 /* StatusBadge.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXGroup section */
+		2555D50C9E1FB876FE8C670E = {
+			isa = PBXGroup;
+			children = (
+				47369F518D50A3CAC12EFA76 /* Coordinate.swift */,
+				95A8AA5E955936F039EC99F7 /* FoodEstablishmentInspection.swift */,
+				F7300B453531E951DC50FB68 /* PlaceCandidate.swift */,
+				F51318E1DC2AC61998ACC8FD /* RestaurantComplianceSummary.swift */,
+			);
+			name = "Models";
+			sourceTree = "<group>";
+		};
+		1FD83F1F5D6D05A24FE39FA2 = {
+			isa = PBXGroup;
+			children = (
+				B260BE69C31E58D5D665030F /* ComplianceSearchService.swift */,
+				19F9B5039140268821A3663E /* InspectionAggregator.swift */,
+				AAB8B2826C4BA4E0B0735392 /* KingCountyInspectionService.swift */,
+				2555D50C9E1FB876FE8C670E /* Models */,
+				BFDD9FA9E22ECF329826ED2C /* RestaurantMatcher.swift */,
+			);
+			name = "CleanEaterKit";
+			sourceTree = "<group>";
+		};
+		0D1ACBA21778FFC3536A13BC = {
+			isa = PBXGroup;
+			children = (
+				A38F828829237106DBCDE564 /* GeocodingService.swift */,
+				B7D277570A2F62BE09706F39 /* MapKitPlaceSearchProvider.swift */,
+			);
+			name = "CleanEaterMapKit";
+			sourceTree = "<group>";
+		};
+		923470CB81C40E962E92147E = {
+			isa = PBXGroup;
+			children = (
+				E64A83E5FDF8526985763055 /* AppSettings.swift */,
+				B416C1C708BE57E22838B8D4 /* CleanEaterApp.swift */,
+				60928475B288C0D305274165 /* ContentView.swift */,
+				7F60A8017AC6903009CB179E /* RecentSearch.swift */,
+				02961C62306DA8770FAD92CF /* RestaurantDetailView.swift */,
+				43940AC3EAA93A576CD6E268 /* SearchViewModel.swift */,
+				296BD778FA885559653EB4C3 /* SettingsView.swift */,
+				3F35FAF51EC68B22430AC348 /* StatusBadge.swift */,
+			);
+			name = "CleanEaterApp";
+			sourceTree = "<group>";
+		};
+		D25DD648E8B274CB8F7D8259 = {
+			isa = PBXGroup;
+			children = (
+				2ECECF6B8DA3E012379EB0B0 /* CleanEater.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		116858FF35DEE24FDB7BDC26 = {
+			isa = PBXGroup;
+			children = (
+				1FD83F1F5D6D05A24FE39FA2 /* CleanEaterKit */,
+				0D1ACBA21778FFC3536A13BC /* CleanEaterMapKit */,
+				923470CB81C40E962E92147E /* CleanEaterApp */,
+				D25DD648E8B274CB8F7D8259 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B497905C2EC16D45861004AC = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67FA58AD72FF41BA2EC0C3BD /* ComplianceSearchService.swift in Sources */,
+				80B2FECDDDA73225B1A8E37B /* InspectionAggregator.swift in Sources */,
+				9EC2E341F073692CFCB7699A /* KingCountyInspectionService.swift in Sources */,
+				6662AC6C41040CCC938C0678 /* Coordinate.swift in Sources */,
+				777FDDF0C59A16406CFF7A41 /* FoodEstablishmentInspection.swift in Sources */,
+				17313568EC0714D7A6AB7FD4 /* PlaceCandidate.swift in Sources */,
+				41F319E657411453F7AA1C63 /* RestaurantComplianceSummary.swift in Sources */,
+				23CAE17B7EFE45CAC1A621A8 /* RestaurantMatcher.swift in Sources */,
+				230E9A76854684B29F32CC3A /* GeocodingService.swift in Sources */,
+				11F16EE34024B447F21EC2A3 /* MapKitPlaceSearchProvider.swift in Sources */,
+				3DCEACFDF23C92C674AC8C8C /* AppSettings.swift in Sources */,
+				488FFAB9D89B5EAD2D0080B3 /* CleanEaterApp.swift in Sources */,
+				4DAE192ACECC679280F9D648 /* ContentView.swift in Sources */,
+				4648B3BFA47D209400AB536E /* RecentSearch.swift in Sources */,
+				CB8EFE2D8EAE12432240FC3F /* RestaurantDetailView.swift in Sources */,
+				9E95E49B44B05220A6FCEFD7 /* SearchViewModel.swift in Sources */,
+				D2A0079547D222A845D93B97 /* SettingsView.swift in Sources */,
+				6EF1489C0048A52D4BB6855D /* StatusBadge.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C7473E12A20A94EF98813F5E = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4E349B39FE4EBC9DE6AF2594 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		524FA856EEE22D01CF065B92 = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C71E75EBE49B0EE210281CF /* Build configuration list for PBXNativeTarget "CleanEater" */;
+			buildPhases = (
+				B497905C2EC16D45861004AC /* Sources */,
+				C7473E12A20A94EF98813F5E /* Frameworks */,
+				4E349B39FE4EBC9DE6AF2594 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CleanEater;
+			productName = CleanEater;
+			productReference = 2ECECF6B8DA3E012379EB0B0 /* CleanEater.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin XCBuildConfiguration section */
+		75838EF84B10C1169A9970C5 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cleaneater.CleanEater;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		69C82657F72C6ED025E95F5E = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cleaneater.CleanEater;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		69512ECE63B414B45549AE30 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf";
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4084599CF489A6956CC70A27 = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C71E75EBE49B0EE210281CF = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75838EF84B10C1169A9970C5 /* Debug */,
+				69C82657F72C6ED025E95F5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6528CE468B3C4ECFE3C61293 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69512ECE63B414B45549AE30 /* Debug */,
+				4084599CF489A6956CC70A27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8DF9B6A51CAE112EB5B1C017 /* Project object */;
+}

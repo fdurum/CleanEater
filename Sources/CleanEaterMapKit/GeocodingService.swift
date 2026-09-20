@@ -1,6 +1,8 @@
 #if canImport(CoreLocation)
 import CoreLocation
+#if canImport(CleanEaterKit)
 import CleanEaterKit
+#endif
 
 /// Turns a free-text location ("Capitol Hill, Seattle") into a coordinate, so the
 /// "where" field in the UI doesn't require the user to grant location access.

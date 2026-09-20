@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(CleanEaterKit)
 import CleanEaterKit
+#endif
 
 struct ContentView: View {
     @StateObject private var viewModel = SearchViewModel()

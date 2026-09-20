@@ -45,21 +45,41 @@ and only build on macOS.
 
 ## Running it
 
-This is a Swift package with an **executable** app target — on macOS you can
-run it directly, no `.xcodeproj` required:
+**Open `CleanEater.xcodeproj` in Xcode and hit ⌘R.** That's the normal way to
+build and run this — a single "CleanEater" target with all the sources above
+compiled together, a `GENERATE_INFOPLIST_FILE`-based Info.plist (no physical
+Info.plist file to maintain), and a shared scheme already checked in, so
+there's no setup step beyond opening it.
+
+Before your first build, select the CleanEater project in the navigator →
+the CleanEater target → **Signing & Capabilities**, and change the bundle
+identifier (currently the placeholder `com.cleaneater.CleanEater`) to your
+own, and pick your team for code signing.
+
+The `.xcodeproj` was generated with a script (using the same `node-xcode`
+library React Native/Cordova use to edit Xcode projects programmatically)
+rather than hand-typed, specifically to avoid the risk of a manually-edited
+`project.pbxproj` silently corrupting — but it was written and validated
+(round-trip parsed) in an environment without Xcode itself, so treat the
+first `⌘B` as the real verification and file an issue against yourself if
+anything looks off in Xcode's own project settings UI.
+
+The Swift package (`Package.swift`) is still here and still works — it's how
+the unit tests run, and it's a second, Xcode-independent way to build/run the
+app:
 
 ```
-swift run CleanEaterApp
+swift test              # runs Tests/CleanEaterKitTests
+swift run CleanEaterApp # builds & runs the app without Xcode
 ```
 
-Or open `Package.swift` in Xcode (File ▸ Open) and run the `CleanEaterApp`
-scheme like any other app target.
-
-Run the unit tests with:
-
-```
-swift test
-```
+Both build systems compile the *same* files in `Sources/`. The only wrinkle
+is that files shared between `CleanEaterApp`/`CleanEaterMapKit` and
+`CleanEaterKit` import it as `#if canImport(CleanEaterKit) import
+CleanEaterKit #endif` — under SPM that's a real separate module and the
+import fires; under the Xcode project everything is one target/module, so
+`canImport` is false and the import is skipped, with no code changes needed
+either way.
 
 ## Known limitations / next steps
 
@@ -75,9 +95,15 @@ swift test
 - **No location-permission entitlement yet.** The app currently only
   resolves "where" via geocoding a typed string (no permission needed). A
   "use my current location" button would need `CLLocationManager`, which in
-  turn needs `NSLocationWhenInUseUsageDescription` in an actual signed `.app`
-  bundle — that requires wrapping this package in a minimal Xcode project
-  (Product ▸ Archive also needs this for distribution/notarization).
+  turn needs `NSLocationWhenInUseUsageDescription` — add that as an
+  `INFOPLIST_KEY_NSLocationWhenInUseUsageDescription` build setting (or a real
+  Info.plist) on the target once you build that feature.
+- **No App Sandbox / entitlements file.** Fine for local development and
+  running unsigned/self-signed. If you turn on App Sandbox for Mac App Store
+  distribution or notarization, you'll need to add an entitlements file
+  granting `com.apple.security.network.client` (outgoing network access) —
+  without it, the King County and geocoding requests will silently fail
+  under a sandboxed build.
 - **Rate limiting.** Socrata's public (non-app-token) tier throttles
   aggressively. `ComplianceSearchService` queries King County once per place
   sequentially rather than in parallel to stay under that limit, but a

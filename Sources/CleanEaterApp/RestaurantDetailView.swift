@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(CleanEaterKit)
 import CleanEaterKit
+#endif
 
 struct RestaurantDetailView: View {
     let result: CleanRestaurantResult
