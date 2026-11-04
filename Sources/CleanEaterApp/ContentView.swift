@@ -7,6 +7,8 @@ struct ContentView: View {
     @AppStorage(SettingsKey.lookbackYears) private var lookbackYears = SettingsDefault.lookbackYears
     @AppStorage(SettingsKey.searchRadiusMiles) private var searchRadiusMiles = SettingsDefault.searchRadiusMiles
     @AppStorage(SettingsKey.showAllResults) private var showAllResults = SettingsDefault.showAllResults
+    @AppStorage(SettingsKey.allowExcellentRating) private var allowExcellentRating = SettingsDefault.allowExcellentRating
+    @AppStorage(SettingsKey.excellentPointsThreshold) private var excellentPointsThreshold = SettingsDefault.excellentPointsThreshold
 
     @State private var showInspector = false
 
@@ -68,9 +70,15 @@ struct ContentView: View {
         .navigationTitle("CleanEater")
         .toolbar {
             ToolbarItem(placement: .automatic) {
+                Toggle("Allow Excellent Rating", isOn: $allowExcellentRating)
+                    .toggleStyle(.checkbox)
+                    .disabled(showAllResults)
+                    .help("When on, also shows restaurants that aren't perfectly clean but stay at or under \(excellentPointsThreshold) violation points and were never closed.")
+            }
+            ToolbarItem(placement: .automatic) {
                 Toggle("Show All Results", isOn: $showAllResults)
                     .toggleStyle(.checkbox)
-                    .help("When off, only restaurants with zero violations in the lookback window are shown.")
+                    .help("When off, only restaurants meeting the clean (or excellent) bar are shown.")
             }
         }
     }
@@ -111,10 +119,10 @@ struct ContentView: View {
             ContentUnavailableView(
                 "Search for a Restaurant",
                 systemImage: "fork.knife",
-                description: Text("CleanEater shows only places with zero King County health-code violations in the last \(lookbackYears) year\(lookbackYears == 1 ? "" : "s"), unless you turn on “Show All Results.”")
+                description: Text(emptyStateDescription)
             )
         } else {
-            let visibleResults = showAllResults ? viewModel.results : viewModel.results.filter(\.summary.isClean)
+            let visibleResults = viewModel.results.filter(isVisible)
             Table(visibleResults, selection: $viewModel.selection) {
                 TableColumn("Name") { result in
                     Text(result.place.name)
@@ -124,7 +132,7 @@ struct ContentView: View {
                         .foregroundStyle(.secondary)
                 }
                 TableColumn("Status") { result in
-                    StatusBadge(summary: result.summary)
+                    StatusBadge(summary: result.summary, excellentPointsThreshold: excellentPointsThreshold)
                 }
                 TableColumn("Inspections") { result in
                     Text("\(result.summary.inspectionCount)")
@@ -137,6 +145,24 @@ struct ContentView: View {
                 .width(60)
             }
         }
+    }
+
+    private func isVisible(_ result: CleanRestaurantResult) -> Bool {
+        if showAllResults { return true }
+        if result.summary.isClean { return true }
+        if allowExcellentRating { return result.summary.isExcellent(maxViolationPoints: excellentPointsThreshold) }
+        return false
+    }
+
+    private var emptyStateDescription: String {
+        if showAllResults {
+            return "No restaurants found for that search."
+        }
+        let yearsPhrase = "\(lookbackYears) year\(lookbackYears == 1 ? "" : "s")"
+        if allowExcellentRating {
+            return "CleanEater shows places with zero violations, or an excellent rating (≤ \(excellentPointsThreshold) violation points, never closed), in the last \(yearsPhrase)."
+        }
+        return "CleanEater shows only places with zero King County health-code violations in the last \(yearsPhrase), unless you turn on “Allow Excellent Rating” or “Show All Results.”"
     }
 
     private func runSearch() {

@@ -52,4 +52,38 @@ final class InspectionAggregatorTests: XCTestCase {
         XCTAssertTrue(summary.wasEverClosed)
         XCTAssertFalse(summary.isClean)
     }
+
+    func testTotalViolationPointsSumsAcrossViolationRowsOnly() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, violationDescription: "Minor", violationPoints: 3),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, violationDescription: "Minor", violationPoints: 4),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionType: "Routine"), // no violation, no points
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertEqual(summary.totalViolationPoints, 7)
+    }
+
+    func testExcellentAllowsMinorViolationsUnderThreshold() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, violationDescription: "Minor", violationPoints: 5),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertFalse(summary.isClean)
+        XCTAssertTrue(summary.isExcellent(maxViolationPoints: 10))
+        XCTAssertFalse(summary.isExcellent(maxViolationPoints: 4))
+    }
+
+    func testExcellentStillRequiresNeverClosed() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionClosedBusiness: true, violationDescription: "Minor", violationPoints: 1),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertFalse(summary.isExcellent(maxViolationPoints: 50))
+    }
 }

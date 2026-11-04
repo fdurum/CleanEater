@@ -41,6 +41,9 @@ final class SearchViewModel: ObservableObject {
                     if lhs.summary.isClean != rhs.summary.isClean {
                         return lhs.summary.isClean && !rhs.summary.isClean
                     }
+                    if lhs.summary.totalViolationPoints != rhs.summary.totalViolationPoints {
+                        return lhs.summary.totalViolationPoints < rhs.summary.totalViolationPoints
+                    }
                     return lhs.place.name.localizedCaseInsensitiveCompare(rhs.place.name) == .orderedAscending
                 }
             selection = nil

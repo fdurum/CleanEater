@@ -4,12 +4,20 @@ import Foundation
 public struct RestaurantComplianceSummary: Hashable, Sendable {
     public let inspectionCount: Int
     public let violationCount: Int
+    public let totalViolationPoints: Int
     public let mostRecentInspectionDate: Date?
     public let wasEverClosed: Bool
 
-    public init(inspectionCount: Int, violationCount: Int, mostRecentInspectionDate: Date?, wasEverClosed: Bool) {
+    public init(
+        inspectionCount: Int,
+        violationCount: Int,
+        totalViolationPoints: Int,
+        mostRecentInspectionDate: Date?,
+        wasEverClosed: Bool
+    ) {
         self.inspectionCount = inspectionCount
         self.violationCount = violationCount
+        self.totalViolationPoints = totalViolationPoints
         self.mostRecentInspectionDate = mostRecentInspectionDate
         self.wasEverClosed = wasEverClosed
     }
@@ -19,6 +27,15 @@ public struct RestaurantComplianceSummary: Hashable, Sendable {
     /// closed by the health department during that window.
     public var isClean: Bool {
         inspectionCount > 0 && violationCount == 0 && !wasEverClosed
+    }
+
+    /// A looser bar than `isClean`: a restaurant can have cited violations and still
+    /// qualify, as long as they were minor enough that the accumulated
+    /// `violation_points` across the window stay at or under `maxViolationPoints`,
+    /// and the business was never closed. Any restaurant that's `isClean` also
+    /// satisfies this (0 points is always under the threshold).
+    public func isExcellent(maxViolationPoints: Int) -> Bool {
+        inspectionCount > 0 && !wasEverClosed && totalViolationPoints <= maxViolationPoints
     }
 }
 

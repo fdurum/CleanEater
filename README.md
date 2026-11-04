@@ -22,6 +22,10 @@ County's public Socrata API for its Food Establishment Inspection Data
    inspection date, whether it was ever closed.
 7. A restaurant is "clean" if it has at least one inspection in the window,
    zero cited violations, and was never closed.
+8. Optionally (toggle "Allow Excellent Rating" in the toolbar), a restaurant
+   also qualifies as "excellent" if it wasn't perfectly clean but its
+   accumulated `violation_points` over the window stay at or under a
+   threshold (default 10, tunable in Settings), and it was never closed.
 
 ## Project layout
 
@@ -89,6 +93,17 @@ anything looks off in Xcode's own project settings UI.
   `data.kingcounty.gov`. Click one of the "View" links in the app and check
   it actually lands on/filters to the right restaurant — if it doesn't,
   `KingCountyLink.swift` is the only place that needs to change.
+- **The "excellent rating" threshold is a guess, not a calibrated number.**
+  `RestaurantComplianceSummary.isExcellent(maxViolationPoints:)` sums
+  `violation_points` across the lookback window and compares it to a
+  threshold (default 10, set in Settings). `violation_points` is a real
+  column in the dataset, but what a "typical" minor violation costs in
+  points, and what a sensible excellent-vs-not cutoff is, hasn't been
+  checked against real King County data — this was written without network
+  access to verify. Search a few known restaurants, look at their violation
+  point totals in the detail view, and adjust the default in
+  `SettingsDefault.excellentPointsThreshold` (`AppSettings.swift`) if 10
+  turns out to be too strict or too loose.
 - **No App Sandbox / entitlements file.** Fine for local development and
   running unsigned/self-signed. If you turn on App Sandbox for Mac App Store
   distribution or notarization, you'll need to add an entitlements file

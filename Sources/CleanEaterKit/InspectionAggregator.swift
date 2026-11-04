@@ -14,13 +14,16 @@ public enum InspectionAggregator {
         // identified by its date + type rather than by row count.
         let inspectionEvents = Set(inWindow.map { InspectionEventKey(date: $0.inspectionDate, type: $0.inspectionType ?? "") })
 
-        let violationCount = inWindow.filter { $0.isViolationRow }.count
+        let violationRows = inWindow.filter { $0.isViolationRow }
+        let violationCount = violationRows.count
+        let totalViolationPoints = violationRows.reduce(0) { $0 + ($1.violationPoints ?? 0) }
         let mostRecent = inWindow.map(\.inspectionDate).max()
         let wasEverClosed = inWindow.contains { $0.inspectionClosedBusiness }
 
         return RestaurantComplianceSummary(
             inspectionCount: inspectionEvents.count,
             violationCount: violationCount,
+            totalViolationPoints: totalViolationPoints,
             mostRecentInspectionDate: mostRecent,
             wasEverClosed: wasEverClosed
         )
