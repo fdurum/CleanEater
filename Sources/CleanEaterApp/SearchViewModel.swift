@@ -41,6 +41,9 @@ final class SearchViewModel: ObservableObject {
                     if lhs.summary.isClean != rhs.summary.isClean {
                         return lhs.summary.isClean && !rhs.summary.isClean
                     }
+                    if lhs.summary.isExcellent != rhs.summary.isExcellent {
+                        return lhs.summary.isExcellent && !rhs.summary.isExcellent
+                    }
                     if lhs.summary.totalViolationPoints != rhs.summary.totalViolationPoints {
                         return lhs.summary.totalViolationPoints < rhs.summary.totalViolationPoints
                     }

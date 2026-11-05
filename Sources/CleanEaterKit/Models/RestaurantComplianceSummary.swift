@@ -6,6 +6,8 @@ public struct RestaurantComplianceSummary: Hashable, Sendable {
     public let violationCount: Int
     public let totalViolationPoints: Int
     public let mostRecentInspectionDate: Date?
+    public let mostRecentInspectionResult: String?
+    public let hadUnsatisfactoryResult: Bool
     public let wasEverClosed: Bool
 
     public init(
@@ -13,12 +15,16 @@ public struct RestaurantComplianceSummary: Hashable, Sendable {
         violationCount: Int,
         totalViolationPoints: Int,
         mostRecentInspectionDate: Date?,
+        mostRecentInspectionResult: String?,
+        hadUnsatisfactoryResult: Bool,
         wasEverClosed: Bool
     ) {
         self.inspectionCount = inspectionCount
         self.violationCount = violationCount
         self.totalViolationPoints = totalViolationPoints
         self.mostRecentInspectionDate = mostRecentInspectionDate
+        self.mostRecentInspectionResult = mostRecentInspectionResult
+        self.hadUnsatisfactoryResult = hadUnsatisfactoryResult
         self.wasEverClosed = wasEverClosed
     }
 
@@ -29,13 +35,13 @@ public struct RestaurantComplianceSummary: Hashable, Sendable {
         inspectionCount > 0 && violationCount == 0 && !wasEverClosed
     }
 
-    /// A looser bar than `isClean`: a restaurant can have cited violations and still
-    /// qualify, as long as they were minor enough that the accumulated
-    /// `violation_points` across the window stay at or under `maxViolationPoints`,
-    /// and the business was never closed. Any restaurant that's `isClean` also
-    /// satisfies this (0 points is always under the threshold).
-    public func isExcellent(maxViolationPoints: Int) -> Bool {
-        inspectionCount > 0 && !wasEverClosed && totalViolationPoints <= maxViolationPoints
+    /// A looser bar than `isClean`, but still King County's own call rather than a
+    /// number this app made up: a restaurant can have cited violations and still
+    /// qualify, as long as none of its inspections in the window came back with an
+    /// unsatisfactory `inspection_result`, and it was never closed. Every `isClean`
+    /// restaurant automatically satisfies this too.
+    public var isExcellent: Bool {
+        inspectionCount > 0 && !wasEverClosed && !hadUnsatisfactoryResult
     }
 }
 

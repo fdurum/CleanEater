@@ -17,14 +17,17 @@ public enum InspectionAggregator {
         let violationRows = inWindow.filter { $0.isViolationRow }
         let violationCount = violationRows.count
         let totalViolationPoints = violationRows.reduce(0) { $0 + ($1.violationPoints ?? 0) }
-        let mostRecent = inWindow.map(\.inspectionDate).max()
+        let mostRecentRow = inWindow.max { $0.inspectionDate < $1.inspectionDate }
         let wasEverClosed = inWindow.contains { $0.inspectionClosedBusiness }
+        let hadUnsatisfactoryResult = inWindow.contains { $0.indicatesUnsatisfactoryResult }
 
         return RestaurantComplianceSummary(
             inspectionCount: inspectionEvents.count,
             violationCount: violationCount,
             totalViolationPoints: totalViolationPoints,
-            mostRecentInspectionDate: mostRecent,
+            mostRecentInspectionDate: mostRecentRow?.inspectionDate,
+            mostRecentInspectionResult: mostRecentRow?.inspectionResult,
+            hadUnsatisfactoryResult: hadUnsatisfactoryResult,
             wasEverClosed: wasEverClosed
         )
     }

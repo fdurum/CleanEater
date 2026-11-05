@@ -8,7 +8,6 @@ struct ContentView: View {
     @AppStorage(SettingsKey.searchRadiusMiles) private var searchRadiusMiles = SettingsDefault.searchRadiusMiles
     @AppStorage(SettingsKey.showAllResults) private var showAllResults = SettingsDefault.showAllResults
     @AppStorage(SettingsKey.allowExcellentRating) private var allowExcellentRating = SettingsDefault.allowExcellentRating
-    @AppStorage(SettingsKey.excellentPointsThreshold) private var excellentPointsThreshold = SettingsDefault.excellentPointsThreshold
 
     @State private var showInspector = false
 
@@ -73,7 +72,7 @@ struct ContentView: View {
                 Toggle("Allow Excellent Rating", isOn: $allowExcellentRating)
                     .toggleStyle(.checkbox)
                     .disabled(showAllResults)
-                    .help("When on, also shows restaurants that aren't perfectly clean but stay at or under \(excellentPointsThreshold) violation points and were never closed.")
+                    .help("When on, also shows restaurants that had a violation but King County's own inspection result never came back unsatisfactory, and were never closed.")
             }
             ToolbarItem(placement: .automatic) {
                 Toggle("Show All Results", isOn: $showAllResults)
@@ -132,7 +131,7 @@ struct ContentView: View {
                         .foregroundStyle(.secondary)
                 }
                 TableColumn("Status") { result in
-                    StatusBadge(summary: result.summary, excellentPointsThreshold: excellentPointsThreshold)
+                    StatusBadge(summary: result.summary)
                 }
                 TableColumn("Inspections") { result in
                     Text("\(result.summary.inspectionCount)")
@@ -150,7 +149,7 @@ struct ContentView: View {
     private func isVisible(_ result: CleanRestaurantResult) -> Bool {
         if showAllResults { return true }
         if result.summary.isClean { return true }
-        if allowExcellentRating { return result.summary.isExcellent(maxViolationPoints: excellentPointsThreshold) }
+        if allowExcellentRating { return result.summary.isExcellent }
         return false
     }
 
@@ -160,7 +159,7 @@ struct ContentView: View {
         }
         let yearsPhrase = "\(lookbackYears) year\(lookbackYears == 1 ? "" : "s")"
         if allowExcellentRating {
-            return "CleanEater shows places with zero violations, or an excellent rating (≤ \(excellentPointsThreshold) violation points, never closed), in the last \(yearsPhrase)."
+            return "CleanEater shows places with zero violations, or an excellent rating from King County (no unsatisfactory inspection result, never closed), in the last \(yearsPhrase)."
         }
         return "CleanEater shows only places with zero King County health-code violations in the last \(yearsPhrase), unless you turn on “Allow Excellent Rating” or “Show All Results.”"
     }

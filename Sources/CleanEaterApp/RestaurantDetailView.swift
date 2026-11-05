@@ -3,8 +3,6 @@ import SwiftUI
 struct RestaurantDetailView: View {
     let result: CleanRestaurantResult
 
-    @AppStorage(SettingsKey.excellentPointsThreshold) private var excellentPointsThreshold = SettingsDefault.excellentPointsThreshold
-
     private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -24,7 +22,7 @@ struct RestaurantDetailView: View {
                     }
                 }
 
-                StatusBadge(summary: result.summary, excellentPointsThreshold: excellentPointsThreshold)
+                StatusBadge(summary: result.summary)
 
                 Divider()
 
@@ -32,6 +30,9 @@ struct RestaurantDetailView: View {
                     detailRow(label: "Inspections", value: "\(result.summary.inspectionCount) since this app's lookback window began")
                     detailRow(label: "Violations", value: "\(result.summary.violationCount)")
                     detailRow(label: "Violation points", value: "\(result.summary.totalViolationPoints)")
+                    if let mostRecentResult = result.summary.mostRecentInspectionResult {
+                        detailRow(label: "Most recent inspection result", value: mostRecentResult)
+                    }
                     if let mostRecent = result.summary.mostRecentInspectionDate {
                         detailRow(label: "Most recent inspection", value: Self.dateFormatter.string(from: mostRecent))
                     }

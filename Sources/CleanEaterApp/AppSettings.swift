@@ -11,7 +11,6 @@ enum SettingsKey {
     static let searchRadiusMiles = "searchRadiusMiles"
     static let showAllResults = "showAllResults"
     static let allowExcellentRating = "allowExcellentRating"
-    static let excellentPointsThreshold = "excellentPointsThreshold"
 }
 
 enum SettingsDefault {
@@ -19,5 +18,4 @@ enum SettingsDefault {
     static let searchRadiusMiles = 3.0
     static let showAllResults = false
     static let allowExcellentRating = false
-    static let excellentPointsThreshold = 10
 }

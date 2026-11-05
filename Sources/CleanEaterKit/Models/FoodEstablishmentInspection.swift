@@ -120,4 +120,21 @@ public struct FoodEstablishmentInspection: Decodable, Hashable, Sendable {
         }
         return false
     }
+
+    /// Whether King County's own `inspection_result` for this row indicates the
+    /// inspection did not pass — the county's call, not a threshold this app made up.
+    ///
+    /// UNVERIFIED: the exact strings King County uses in `inspection_result` (e.g.
+    /// whether it's "Unsatisfactory", "Fail", "Needs Reinspection", or something else)
+    /// could not be checked against the live API in the environment this was written
+    /// in. This matches by keyword rather than exact value for that reason. If you can
+    /// see the real distinct values in this column, replace this with an exact match.
+    public var indicatesUnsatisfactoryResult: Bool {
+        guard let result = inspectionResult?.lowercased() else { return false }
+        return Self.unsatisfactoryResultKeywords.contains { result.contains($0) }
+    }
+
+    private static let unsatisfactoryResultKeywords = [
+        "unsatisfactory", "fail", "closure", "suspend", "revoke", "noncompliant", "non-compliant",
+    ]
 }

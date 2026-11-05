@@ -65,25 +65,35 @@ final class InspectionAggregatorTests: XCTestCase {
         XCTAssertEqual(summary.totalViolationPoints, 7)
     }
 
-    func testExcellentAllowsMinorViolationsUnderThreshold() {
+    func testExcellentAllowsAMinorViolationWhenResultStaysSatisfactory() {
         let now = Date()
         let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
         let rows = [
-            FoodEstablishmentInspection(name: "A", inspectionDate: now, violationDescription: "Minor", violationPoints: 5),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionResult: "Satisfactory", violationDescription: "Minor", violationPoints: 5),
         ]
         let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
         XCTAssertFalse(summary.isClean)
-        XCTAssertTrue(summary.isExcellent(maxViolationPoints: 10))
-        XCTAssertFalse(summary.isExcellent(maxViolationPoints: 4))
+        XCTAssertTrue(summary.isExcellent, "A cited violation doesn't disqualify excellence if King County's own result wasn't unsatisfactory")
+    }
+
+    func testExcellentRejectsAnUnsatisfactoryResultEvenWithoutClosure() {
+        let now = Date()
+        let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
+        let rows = [
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionResult: "Unsatisfactory - Reinspection Required", violationDescription: "Critical", violationPoints: 20),
+        ]
+        let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
+        XCTAssertTrue(summary.hadUnsatisfactoryResult)
+        XCTAssertFalse(summary.isExcellent)
     }
 
     func testExcellentStillRequiresNeverClosed() {
         let now = Date()
         let cutoff = calendar.date(byAdding: .year, value: -2, to: now)!
         let rows = [
-            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionClosedBusiness: true, violationDescription: "Minor", violationPoints: 1),
+            FoodEstablishmentInspection(name: "A", inspectionDate: now, inspectionResult: "Satisfactory", inspectionClosedBusiness: true, violationDescription: "Minor", violationPoints: 1),
         ]
         let summary = InspectionAggregator.summarize(rows: rows, since: cutoff)
-        XCTAssertFalse(summary.isExcellent(maxViolationPoints: 50))
+        XCTAssertFalse(summary.isExcellent)
     }
 }
